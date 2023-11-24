@@ -11,13 +11,13 @@ mongoose.connect(uri, {
     useNewUrlParser: true
 });
 
-const studentSquema = new mongoose.Schema({
+const quizexamrecordsSquema = new mongoose.Schema({
     name: String,
     sid: String
   });
 
 // defining model
-const Student = mongoose.model("Student", studentSquema);
+const Quizexamrecord = mongoose.model("quizexamrecord", quizexamrecordsSquema);
 
 app.post('/', async (req, res) => {
     const name = req.body.name;
@@ -25,10 +25,10 @@ app.post('/', async (req, res) => {
 
     const newStudent = { name, sid };
 
-    new Student(newStudent)
+    new Quizexamrecord(newStudent)
         .save()
-        .then((savedStudent) => {
-            const { _id, name, sid } = savedStudent;
+        .then((savedquizexamrecord) => {
+            const { _id, name, sid } = savedquizexamrecord;
             return res.status(201).json({ _id, name, sid })
         })
         .catch((err) => {
@@ -38,9 +38,9 @@ app.post('/', async (req, res) => {
 
 app.get("/", async (req, res) => {
 
-    Student.find()
-        .then((student) => {
-            return res.json(student);
+    Quizexamrecord.find()
+        .then((quizexamrecord) => {
+            return res.json(quizexamrecord);
         })
         .catch((err) => {
             return res.status(400).json({ "message": err })
